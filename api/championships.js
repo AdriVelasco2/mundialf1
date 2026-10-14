@@ -8,7 +8,9 @@ const withMembers = async (sql, row) => {
   const members = await sql`SELECT user_id AS id, alias AS name, avatar_data AS avatar FROM championship_members WHERE championship_id = ${row.id} ORDER BY joined_at`;
   const legacy = Array.isArray(row.data?.players) ? row.data.players : [];
   const ids = new Set(members.map(member => member.id));
-  return { ...row, data: { ...emptyData, ...(row.data || {}), players: [...legacy.filter(player => !ids.has(player.id)), ...members] } };
+  const legacyById = new Map(legacy.map(player => [player.id, player]));
+  const currentMembers = members.map(member => ({ ...member, carDesign: legacyById.get(member.id)?.carDesign || 'rosso' }));
+  return { ...row, data: { ...emptyData, ...(row.data || {}), players: [...legacy.filter(player => !ids.has(player.id)), ...currentMembers] } };
 };
 const isMember = async (sql, championshipId, userId) => {
   const rows = await sql`SELECT role FROM championship_members WHERE championship_id = ${championshipId} AND user_id = ${userId}`;
@@ -63,7 +65,8 @@ export default async function handler(req, res) {
       const name = String(req.body?.name || '').trim().slice(0, 40);
       const data = req.body?.data;
       if (!name || !data || typeof data !== 'object') return respond(res, 400, { error: 'Datos del mundial no válidos.' });
-      const rows = await sql`UPDATE championships SET name = ${name}, data = ${JSON.stringify({ players: data.players || [], races: data.races || [] })}::jsonb, updated_at = now() WHERE id = ${id} RETURNING id`;
+      const payload = { players: data.players || [], races: data.races || [], finishedAt: data.finishedAt || null, finalStandings: data.finalStandings || null };
+      const rows = await sql`UPDATE championships SET name = ${name}, data = ${JSON.stringify(payload)}::jsonb, updated_at = now() WHERE id = ${id} RETURNING id`;
       return rows.length ? respond(res, 200, { ok: true }) : respond(res, 404, { error: 'Mundial no encontrado.' });
     }
 
