@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101114" />
+  <title>Paddock — Mundial F1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">P</span><span>PADDOCK<span class="brand-sub">LIGA PRIVADA</span></span></a>
+      <div class="season-label">TEMPORADA</div>
+      <button class="season-switch" id="championshipMenuButton"><span><b id="sideSeason">Sin mundial</b><small>Elegir campeonato</small></span><span>⌄</span></button>
+      <button class="new-season-link" data-action="manage-championships">＋ Crear o cambiar mundial</button>
+      <nav class="nav">
+        <button class="nav-item active" data-view="overview"><span>◫</span> Resumen</button>
+        <button class="nav-item" data-view="standings"><span>▤</span> Clasificación</button>
+        <button class="nav-item" data-view="races"><span>◉</span> Carreras</button>
+        <button class="nav-item" data-view="stats"><span>▥</span> Estadísticas</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="online-dot"></div><span>Solo para la cuadrilla</span><button id="settingsButton" title="Ajustes">⚙</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="crumb"><span>CAMPEONATO</span><b>/</b><strong id="crumbTitle">Resumen</strong></div><div class="top-actions"><span class="season-pill"><i></i> TEMPORADA EN CURSO</span><button class="icon-button" id="exportButton" title="Exportar datos">⇩</button><button class="avatar" id="avatar">P</button></div></header>
+      <div class="content" id="content"></div>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="modalBackdrop"><section class="modal" id="modal"></section></div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
