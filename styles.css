@@ -33,3 +33,29 @@
 .profile-history{padding:16px 14px}
 .profile-tag{display:inline-block;border:1px solid #4a3c27;background:#31291d;color:#efc66d;border-radius:12px;padding:3px 7px;margin:2px;font-size:9px;white-space:nowrap}
 @media(max-width:700px){.modal:has(.profile-history){padding:15px}.profile-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.avatar{background-size:cover;background-position:center;overflow:hidden}
+.mini-badge img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.mini-badge{overflow:hidden;flex:none}
+.auth-callout{border:1px solid #363941;border-radius:6px;background:#202228;padding:16px;margin-top:18px;color:#aeb0b6;font-size:11px;line-height:1.6}
+.auth-callout .primary{margin-top:8px}
+.auth-divider{text-align:center;color:#7e8188;font-size:10px;margin:16px 0}
+.google-button{width:100%}
+.form-error{color:#ff858b;font-size:10px;margin-top:10px;min-height:14px}
+.invite-box{border-top:1px solid #303239;margin-top:19px;padding-top:14px}
+.invite-box h3,.profile-history h3{font:700 16px var(--display);text-transform:uppercase;margin:0 0 6px}
+.invite-box>p{font-size:10px;color:#9699a0;line-height:1.5}
+.invite-box form{display:flex;gap:8px;align-items:end}
+.invite-link{display:flex;gap:8px;align-items:center;margin-top:9px}
+.invite-link .field{min-width:0}
+.mailto-link{display:inline-block;margin-top:9px;text-decoration:none}
+.profile-edit-avatar{display:flex;align-items:center;gap:14px;margin:12px 0 18px}
+.profile-edit-avatar>img,.profile-edit-avatar>span{width:64px;height:64px;border-radius:50%;object-fit:cover;background:#303239;display:grid;place-items:center;font:700 19px var(--display)}
+.upload-button{display:inline-block;cursor:pointer}
+.password-change{border-top:1px solid #303239;margin-top:20px;padding-top:13px;color:#c4c6cb;font-size:11px}
+.password-change summary{cursor:pointer;font-weight:600}
+.password-change .secondary{margin-top:12px}
+.driver-profile-head{display:flex;align-items:center;gap:12px}
+.driver-profile-head img,.driver-profile-head>span{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#303239;display:grid;place-items:center;font:700 16px var(--display)}
+.modal:has(#inviteForm){width:min(620px,100%)}
+@media(max-width:700px){.invite-box form{align-items:stretch;flex-direction:column}.invite-box form .primary{align-self:flex-start}.invite-link{align-items:stretch;flex-direction:column}.profile-edit-avatar>img,.profile-edit-avatar>span{width:55px;height:55px}}

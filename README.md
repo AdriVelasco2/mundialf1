@@ -1,25 +1,32 @@
 # Paddock — Mundial F1
 
-Aplicación privada para crear varios campeonatos, añadir jugadores y registrar resultados. La clasificación y las estadísticas se calculan a partir de los resultados de cada carrera.
+Aplicación para organizar campeonatos privados de F1. Cualquier persona puede consultar la lista de mundiales, resultados, clasificaciones y perfiles. Para crear un campeonato, invitar participantes o registrar resultados hay que iniciar sesión.
 
-## Persistencia compartida con Vercel y Neon
+## Funciones
 
-La app guarda los campeonatos en PostgreSQL mediante una función de servidor de Vercel. No se necesita login; cualquiera con acceso al enlace podrá ver y modificar los mundiales.
+- Registro e inicio de sesión con correo y contraseña a través de Neon Auth; Google está disponible si se configura como proveedor OAuth en Neon.
+- Creación de mundiales por usuarios autenticados.
+- Invitaciones por correo (el enlace queda limitado a ese correo) o mediante enlace compartible. El enlace abre la app y permite aceptar la invitación tras iniciar sesión y escoger alias.
+- Perfiles con alias, foto pública y cambio de contraseña.
+- Propietarios y participantes pueden editar resultados; solo el propietario puede invitar o eliminar el campeonato.
+- Resultados, clasificación y estadísticas públicos.
 
-1. Sube este repositorio a GitHub y crea un proyecto en Vercel desde ese repositorio.
-2. En Vercel, abre **Storage → Create Database** e instala Neon desde el Marketplace. Asocia la base de datos al proyecto para que Vercel configure `DATABASE_URL`.
-3. En la consola de Neon (SQL Editor), ejecuta el contenido de [`schema.sql`](./schema.sql) una vez.
-4. Despliega o vuelve a desplegar el proyecto. La interfaz hablará con `/api/championships` y los datos se guardarán en PostgreSQL.
+## Base de datos y despliegue
 
-Si tienes campeonatos guardados en el navegador de la versión anterior, la app intenta importar el campeonato activo al primer arranque con la base de datos conectada.
+Vercel debe tener conectada la base Neon y las variables `DATABASE_URL`, `NEON_AUTH_BASE_URL` y `VITE_NEON_AUTH_URL` configuradas en producción y preview. La verificación de sesión usa `NEON_AUTH_JWKS_URL` cuando está disponible y, si no, el endpoint JWKS estándar de Neon Auth.
+
+Ejecuta [`schema.sql`](./schema.sql) una vez en el SQL Editor de Neon para crear las tablas de perfiles, membresías e invitaciones y añadir el propietario a los campeonatos existentes. Un campeonato antiguo sin propietario puede reclamarse por el primer usuario autenticado que lo abra.
+
+Después, `git push` a GitHub dispara el despliegue de Vercel. Vite compila la interfaz a `dist/`; las funciones de `api/` siguen ejecutándose en Vercel.
 
 ## Desarrollo local
 
-Instala Node.js, configura `DATABASE_URL` con la cadena de conexión de Neon y ejecuta:
-
 ```sh
 npm install
+npm run build
 npx vercel dev
 ```
 
-Sin `DATABASE_URL`, la app mantiene una copia local en el navegador para poder probar la interfaz. Esa copia no se comparte entre dispositivos y limpiar el almacenamiento del navegador la elimina. No uses datos importantes hasta conectar la base de datos y comprobar el despliegue.
+Para autenticar localmente, usa `vercel env pull` cuando las variables del entorno sean descargables o crea un `.env.local` con `DATABASE_URL`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_JWKS_URL` y `VITE_NEON_AUTH_URL`. No guardes archivos `.env*` en Git.
+
+Las invitaciones con correo generan un enlace específico para ese destinatario y permiten abrir el programa de correo con el enlace incluido. El envío automático requiere conectar un proveedor de correo.
