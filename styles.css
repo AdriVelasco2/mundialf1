@@ -3,3 +3,19 @@
 .new-season-link{background:none;border:0;color:#dc6d74;text-align:left;font-size:10px;font-weight:600;padding:10px 7px 0}
 
 .new-season-link{background:none;border:0;color:#dc6d74;text-align:left;font-size:10px;font-weight:600;padding:10px 7px 0}
+
+/* GP entry: race, sprint and qualifying */
+.modal:has(#raceForm){width:min(720px,100%)}
+.result-section{border-top:1px solid #303239;margin-top:20px;padding-top:14px}
+.result-section-head{display:flex;justify-content:space-between;margin-bottom:8px}
+.result-section-head b{font-size:12px}
+.result-section-head small,.sprint-toggle small{display:block;color:#858991;font-size:9px;margin-top:4px}
+.result-row{grid-template-columns:72px minmax(0,1fr) 70px 28px}
+.result-row .result-position,.result-row .result-player{width:100%}
+.result-points{text-align:right;color:#efc66d;font:700 12px var(--display);white-space:nowrap}
+.sprint-toggle{display:flex;gap:11px;align-items:flex-start;margin:17px 0 2px;padding:13px;background:#202228;border:1px solid #353840;border-radius:5px;cursor:pointer}
+.sprint-toggle input{accent-color:var(--red);margin:3px 0 0}
+.sprint-toggle b{font-size:11px}
+.helper-note{font-size:9px;color:#858991;margin:7px 0 0}
+.sprint-section[hidden]{display:none}
+@media(max-width:700px){.modal:has(#raceForm){padding:17px}.result-row{grid-template-columns:60px minmax(0,1fr) 54px 22px;gap:5px}.result-row select{padding:8px 5px}.result-points{font-size:11px}}
