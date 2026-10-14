@@ -26,3 +26,10 @@
 .stats-rankings .bar-item{grid-template-columns:minmax(70px,110px) minmax(30px,1fr) 34px}
 .stats-rankings .bar-item>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:700px){.stats-rankings{grid-template-columns:1fr}}
+
+.modal:has(.profile-history){width:min(900px,100%)}
+.driver-profile-link{border:0;padding:0;background:none;color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.driver-profile-link:hover{color:var(--red);text-decoration:underline}
+.profile-history{padding:16px 14px}
+.profile-tag{display:inline-block;border:1px solid #4a3c27;background:#31291d;color:#efc66d;border-radius:12px;padding:3px 7px;margin:2px;font-size:9px;white-space:nowrap}
+@media(max-width:700px){.modal:has(.profile-history){padding:15px}.profile-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
